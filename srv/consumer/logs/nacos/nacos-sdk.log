@@ -1,0 +1,62 @@
+2026-03-15T13:26:55.589+0800	WARN	cache/disk_cache.go:193	read Config Content failed. cause file doesn't exist, file path: ./cache/nacos\config\demo-config@@DEFAULT_GROUP@@_failover.
+2026-03-15T13:26:55.596+0800	INFO	rpc/rpc_client.go:157	init rpc client for name %!(EXTRA string=config-0-931052ba-a216-40ac-b46e-7fefe18b94a3)
+2026-03-15T13:26:55.596+0800	INFO	rpc/rpc_client.go:166	get app conn labels from client config map[] 
+2026-03-15T13:26:55.596+0800	INFO	rpc/rpc_client.go:168	get app conn labels from env map[] 
+2026-03-15T13:26:55.596+0800	INFO	rpc/rpc_client.go:171	final app conn labels : map[] 
+2026-03-15T13:26:55.598+0800	INFO	rpc/rpc_client.go:327	[RpcClient.Start] config-0-931052ba-a216-40ac-b46e-7fefe18b94a3 try to connect to server on start up, server: {serverIp:115.190.57.118 serverPort:8848 serverGrpcPort:9848}
+2026-03-15T13:26:55.598+0800	INFO	rpc/grpc_client.go:175	check tls config %!(EXTRA *constant.TLSConfig=&{false false false    })
+2026-03-15T13:26:55.598+0800	INFO	rpc/grpc_client.go:180	try to get tls config from env
+2026-03-15T13:26:55.598+0800	INFO	rpc/grpc_client.go:189	 tls config from env is not enable
+2026-03-15T13:26:55.606+0800	INFO	util/common.go:96	Local IP:192.168.43.230
+2026-03-15T13:26:55.815+0800	INFO	rpc/rpc_client.go:337	config-0-931052ba-a216-40ac-b46e-7fefe18b94a3 success to connect to server {serverIp:115.190.57.118 serverPort:8848 serverGrpcPort:9848} on start up, connectionId=1773552419721_111.55.78.103_26833
+2026-03-15T13:26:55.815+0800	INFO	rpc/rpc_client.go:487	config-0-931052ba-a216-40ac-b46e-7fefe18b94a3 notify connected event to listeners , connectionId=1773552419721_111.55.78.103_26833
+2026-03-15T13:26:55.815+0800	INFO	config_client/config_connection_event_listener.go:38	[ConfigConnectionEventListener] connect to config server for taskId: 0
+2026-03-15T13:26:55.865+0800	ERROR	cache/disk_cache.go:105	make dir failed, dir path ./cache/nacos\config, err: mkdir C:\Users\ZhuanZ\Desktop\yueyeyue\exam\srv\consumer\./cache/nacos: The system cannot find the path specified..
+2026-03-15T13:26:55.866+0800	ERROR	cache/disk_cache.go:120	make dir failed, dir path ./cache/nacos\config, err: mkdir C:\Users\ZhuanZ\Desktop\yueyeyue\exam\srv\consumer\./cache/nacos: The system cannot find the path specified..
+2026-03-15T13:26:55.866+0800	WARN	cache/disk_cache.go:193	read Config Content failed. cause file doesn't exist, file path: ./cache/nacos\config\mysql-config@@DEFAULT_GROUP@@_failover.
+2026-03-15T13:26:55.923+0800	WARN	rpc/rpc_client.go:614	ConfigQueryRequest request received fail response, error code: 300, result code: 500, message: [config data not exist]
+2026-03-15T13:26:55.923+0800	ERROR	cache/disk_cache.go:105	make dir failed, dir path ./cache/nacos\config, err: mkdir C:\Users\ZhuanZ\Desktop\yueyeyue\exam\srv\consumer\./cache/nacos: The system cannot find the path specified..
+2026-03-15T13:26:55.923+0800	ERROR	cache/disk_cache.go:120	make dir failed, dir path ./cache/nacos\config, err: mkdir C:\Users\ZhuanZ\Desktop\yueyeyue\exam\srv\consumer\./cache/nacos: The system cannot find the path specified..
+2026-03-15T13:26:57.663+0800	WARN	cache/disk_cache.go:193	read Config Content failed. cause file doesn't exist, file path: ./cache/nacos\config\redis-config@@DEFAULT_GROUP@@_failover.
+2026-03-15T13:26:57.712+0800	WARN	rpc/rpc_client.go:614	ConfigQueryRequest request received fail response, error code: 300, result code: 500, message: [config data not exist]
+2026-03-15T13:26:57.713+0800	ERROR	cache/disk_cache.go:105	make dir failed, dir path ./cache/nacos\config, err: mkdir C:\Users\ZhuanZ\Desktop\yueyeyue\exam\srv\consumer\./cache/nacos: The system cannot find the path specified..
+2026-03-15T13:26:57.713+0800	ERROR	cache/disk_cache.go:120	make dir failed, dir path ./cache/nacos\config, err: mkdir C:\Users\ZhuanZ\Desktop\yueyeyue\exam\srv\consumer\./cache/nacos: The system cannot find the path specified..
+2026-03-15T13:26:58.244+0800	WARN	cache/disk_cache.go:193	read Config Content failed. cause file doesn't exist, file path: ./cache/nacos\config\mysql-config@@DEFAULT_GROUP@@_failover.
+2026-03-15T13:26:58.300+0800	WARN	rpc/rpc_client.go:614	ConfigQueryRequest request received fail response, error code: 300, result code: 500, message: [config data not exist]
+2026-03-15T13:26:58.300+0800	ERROR	cache/disk_cache.go:105	make dir failed, dir path ./cache/nacos\config, err: mkdir C:\Users\ZhuanZ\Desktop\yueyeyue\exam\srv\consumer\./cache/nacos: The system cannot find the path specified..
+2026-03-15T13:26:58.301+0800	ERROR	cache/disk_cache.go:120	make dir failed, dir path ./cache/nacos\config, err: mkdir C:\Users\ZhuanZ\Desktop\yueyeyue\exam\srv\consumer\./cache/nacos: The system cannot find the path specified..
+2026-03-15T13:26:59.946+0800	WARN	cache/disk_cache.go:193	read Config Content failed. cause file doesn't exist, file path: ./cache/nacos\config\redis-config@@DEFAULT_GROUP@@_failover.
+2026-03-15T13:26:59.996+0800	WARN	rpc/rpc_client.go:614	ConfigQueryRequest request received fail response, error code: 300, result code: 500, message: [config data not exist]
+2026-03-15T13:26:59.996+0800	ERROR	cache/disk_cache.go:105	make dir failed, dir path ./cache/nacos\config, err: mkdir C:\Users\ZhuanZ\Desktop\yueyeyue\exam\srv\consumer\./cache/nacos: The system cannot find the path specified..
+2026-03-15T13:26:59.996+0800	ERROR	cache/disk_cache.go:120	make dir failed, dir path ./cache/nacos\config, err: mkdir C:\Users\ZhuanZ\Desktop\yueyeyue\exam\srv\consumer\./cache/nacos: The system cannot find the path specified..
+2026-03-15T13:37:28.514+0800	WARN	cache/disk_cache.go:193	read Config Content failed. cause file doesn't exist, file path: ./cache/nacos\config\demo-config@@DEFAULT_GROUP@@_failover.
+2026-03-15T13:37:28.519+0800	INFO	rpc/rpc_client.go:157	init rpc client for name %!(EXTRA string=config-0-d3aec224-64e3-4369-89f0-38edc37ca9d7)
+2026-03-15T13:37:28.519+0800	INFO	rpc/rpc_client.go:166	get app conn labels from client config map[] 
+2026-03-15T13:37:28.519+0800	INFO	rpc/rpc_client.go:168	get app conn labels from env map[] 
+2026-03-15T13:37:28.519+0800	INFO	rpc/rpc_client.go:171	final app conn labels : map[] 
+2026-03-15T13:37:28.519+0800	INFO	rpc/rpc_client.go:327	[RpcClient.Start] config-0-d3aec224-64e3-4369-89f0-38edc37ca9d7 try to connect to server on start up, server: {serverIp:115.190.57.118 serverPort:8848 serverGrpcPort:9848}
+2026-03-15T13:37:28.520+0800	INFO	rpc/grpc_client.go:175	check tls config %!(EXTRA *constant.TLSConfig=&{false false false    })
+2026-03-15T13:37:28.520+0800	INFO	rpc/grpc_client.go:180	try to get tls config from env
+2026-03-15T13:37:28.520+0800	INFO	rpc/grpc_client.go:189	 tls config from env is not enable
+2026-03-15T13:37:28.525+0800	INFO	util/common.go:96	Local IP:192.168.43.230
+2026-03-15T13:37:28.743+0800	INFO	rpc/rpc_client.go:337	config-0-d3aec224-64e3-4369-89f0-38edc37ca9d7 success to connect to server {serverIp:115.190.57.118 serverPort:8848 serverGrpcPort:9848} on start up, connectionId=1773553052660_111.55.78.103_18549
+2026-03-15T13:37:28.744+0800	INFO	rpc/rpc_client.go:487	config-0-d3aec224-64e3-4369-89f0-38edc37ca9d7 notify connected event to listeners , connectionId=1773553052660_111.55.78.103_18549
+2026-03-15T13:37:28.744+0800	INFO	config_client/config_connection_event_listener.go:38	[ConfigConnectionEventListener] connect to config server for taskId: 0
+2026-03-15T13:37:28.799+0800	ERROR	cache/disk_cache.go:105	make dir failed, dir path ./cache/nacos\config, err: mkdir C:\Users\ZhuanZ\Desktop\yueyeyue\exam\srv\consumer\./cache/nacos: The system cannot find the path specified..
+2026-03-15T13:37:28.799+0800	ERROR	cache/disk_cache.go:120	make dir failed, dir path ./cache/nacos\config, err: mkdir C:\Users\ZhuanZ\Desktop\yueyeyue\exam\srv\consumer\./cache/nacos: The system cannot find the path specified..
+2026-03-15T13:37:28.799+0800	WARN	cache/disk_cache.go:193	read Config Content failed. cause file doesn't exist, file path: ./cache/nacos\config\mysql-config@@DEFAULT_GROUP@@_failover.
+2026-03-15T13:37:28.847+0800	WARN	rpc/rpc_client.go:614	ConfigQueryRequest request received fail response, error code: 300, result code: 500, message: [config data not exist]
+2026-03-15T13:37:28.847+0800	ERROR	cache/disk_cache.go:105	make dir failed, dir path ./cache/nacos\config, err: mkdir C:\Users\ZhuanZ\Desktop\yueyeyue\exam\srv\consumer\./cache/nacos: The system cannot find the path specified..
+2026-03-15T13:37:28.848+0800	ERROR	cache/disk_cache.go:120	make dir failed, dir path ./cache/nacos\config, err: mkdir C:\Users\ZhuanZ\Desktop\yueyeyue\exam\srv\consumer\./cache/nacos: The system cannot find the path specified..
+2026-03-15T13:37:30.614+0800	WARN	cache/disk_cache.go:193	read Config Content failed. cause file doesn't exist, file path: ./cache/nacos\config\redis-config@@DEFAULT_GROUP@@_failover.
+2026-03-15T13:37:30.666+0800	WARN	rpc/rpc_client.go:614	ConfigQueryRequest request received fail response, error code: 300, result code: 500, message: [config data not exist]
+2026-03-15T13:37:30.666+0800	ERROR	cache/disk_cache.go:105	make dir failed, dir path ./cache/nacos\config, err: mkdir C:\Users\ZhuanZ\Desktop\yueyeyue\exam\srv\consumer\./cache/nacos: The system cannot find the path specified..
+2026-03-15T13:37:30.666+0800	ERROR	cache/disk_cache.go:120	make dir failed, dir path ./cache/nacos\config, err: mkdir C:\Users\ZhuanZ\Desktop\yueyeyue\exam\srv\consumer\./cache/nacos: The system cannot find the path specified..
+2026-03-15T13:37:31.200+0800	WARN	cache/disk_cache.go:193	read Config Content failed. cause file doesn't exist, file path: ./cache/nacos\config\mysql-config@@DEFAULT_GROUP@@_failover.
+2026-03-15T13:37:31.248+0800	WARN	rpc/rpc_client.go:614	ConfigQueryRequest request received fail response, error code: 300, result code: 500, message: [config data not exist]
+2026-03-15T13:37:31.248+0800	ERROR	cache/disk_cache.go:105	make dir failed, dir path ./cache/nacos\config, err: mkdir C:\Users\ZhuanZ\Desktop\yueyeyue\exam\srv\consumer\./cache/nacos: The system cannot find the path specified..
+2026-03-15T13:37:31.248+0800	ERROR	cache/disk_cache.go:120	make dir failed, dir path ./cache/nacos\config, err: mkdir C:\Users\ZhuanZ\Desktop\yueyeyue\exam\srv\consumer\./cache/nacos: The system cannot find the path specified..
+2026-03-15T13:37:32.935+0800	WARN	cache/disk_cache.go:193	read Config Content failed. cause file doesn't exist, file path: ./cache/nacos\config\redis-config@@DEFAULT_GROUP@@_failover.
+2026-03-15T13:37:32.993+0800	WARN	rpc/rpc_client.go:614	ConfigQueryRequest request received fail response, error code: 300, result code: 500, message: [config data not exist]
+2026-03-15T13:37:32.993+0800	ERROR	cache/disk_cache.go:105	make dir failed, dir path ./cache/nacos\config, err: mkdir C:\Users\ZhuanZ\Desktop\yueyeyue\exam\srv\consumer\./cache/nacos: The system cannot find the path specified..
+2026-03-15T13:37:32.994+0800	ERROR	cache/disk_cache.go:120	make dir failed, dir path ./cache/nacos\config, err: mkdir C:\Users\ZhuanZ\Desktop\yueyeyue\exam\srv\consumer\./cache/nacos: The system cannot find the path specified..

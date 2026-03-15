@@ -1,0 +1,89 @@
+syntax = "proto3";
+
+option go_package ="./";
+
+package ecommerce;
+
+// ------------------------------------ 
+// Messages
+// ------------------------------------ 
+
+//--------------------------------goods--------------------------------
+message Goods {
+  int64 id = 1; //id
+  string name = 2; //名称
+  double price = 3; //价格
+  int64 stock = 4; //库存
+}
+
+message AddGoodsReq {
+  string name = 1; //名称
+  double price = 2; //价格
+  int64 stock = 3; //库存
+}
+
+message AddGoodsResp {
+  string message =1;
+}
+message OrderReq {
+  int64 goods_id =1;//商品id
+  int64 num = 2; //订单数量
+}
+message OrderResp {
+  string message =1;
+}
+message UpdateGoodsReq {
+  int64 id = 1; //id
+  double price = 2; //价格
+}
+
+message UpdateGoodsResp {
+  string message =1;
+}
+
+message DelGoodsReq {
+  int64 id = 1; //id
+}
+
+message DelGoodsResp {
+  string message =1;
+}
+
+message GetGoodsByIdReq {
+  int64 id = 1; //id
+}
+
+message GetGoodsByIdResp {
+  Goods goods = 1; //goods
+}
+
+message SearchGoodsReq {
+  int64 page = 1; //page
+ int64 size =2;
+}
+
+message SearchGoodsResp {
+  repeated Goods goods = 1; //goods
+}
+
+message PayReq {
+  int64 id = 1;
+}
+message PayResp {
+  string url =1;
+}
+// ------------------------------------ 
+// Rpc Func
+// ------------------------------------ 
+
+service EcommerceService{ 
+
+	 //-----------------------goods----------------------- 
+	 rpc AddGoods(AddGoodsReq) returns (AddGoodsResp); 
+	 rpc UpdateGoods(UpdateGoodsReq) returns (UpdateGoodsResp); 
+	 rpc DelGoods(DelGoodsReq) returns (DelGoodsResp); 
+	 rpc GetGoodsById(GetGoodsByIdReq) returns (GetGoodsByIdResp); 
+	 rpc SearchGoods(SearchGoodsReq) returns (SearchGoodsResp);
+  rpc AddOrder(OrderReq) returns (OrderResp);
+  rpc AliPay(PayReq) returns (PayResp);
+}

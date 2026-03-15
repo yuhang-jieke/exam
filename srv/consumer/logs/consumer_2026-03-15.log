@@ -1,0 +1,316 @@
+2026/03/15 13:37:31 main.go:48: 日志文件初始化成功：logs\consumer_2026-03-15.log
+2026/03/15 13:37:31 main.go:88: ========== 消费者服务启动 ==========
+2026/03/15 13:37:33 main.go:94: [DB] 数据库连接成功
+2026/03/15 13:37:33 main.go:95: [Redis] Redis 连接成功
+2026/03/15 13:37:33 main.go:99: [Idempotent] 幂等性处理器初始化成功
+2026/03/15 13:37:33 main.go:114: [RabbitMQ] 消费者连接成功
+2026/03/15 13:37:33 consumer.go:107: [RabbitMQ Consumer] 开始消费队列: goods.queue, consumerTag: 
+2026/03/15 13:37:33 main.go:127: [Consumer] 开始监听 goods.queue 队列...
+2026/03/15 13:37:33 consumer.go:107: [RabbitMQ Consumer] 开始消费队列: order.queue, consumerTag: 
+2026/03/15 13:37:33 main.go:136: [Consumer] 开始监听 order.queue 队列...
+2026/03/15 13:37:33 main.go:138: [Consumer] 按 Ctrl+C 停止消费
+2026/03/15 13:37:39 consumer.go:122: [RabbitMQ Consumer] 收到消息: {"order_code":"c9f2df84-7190-45","goods_id":29,"num":10,"price":14.1,"action":"created","timestamp":"2026-03-15T13:37:39.4732021+08:00"}
+2026/03/15 13:37:39 main.go:206: [Order] 开始处理订单消息：Key=57f5842cc94d56e9b5cdd2bc698db430
+2026/03/15 13:37:39 main.go:219: [Order] 幂等性检查通过：Key=57f5842cc94d56e9b5cdd2bc698db430
+2026/03/15 13:37:39 main.go:227: [Order] 订单详情：OrderCode=c9f2df84-7190-45, GoodsId=29, Num=10, Price=14.10
+2026/03/15 13:37:39 main.go:233: [Order] 开始创建订单记录...
+2026/03/15 13:37:39 main.go:246: [Order] ✅ 订单创建成功：OrderCode=c9f2df84-7190-45, ID=10
+2026/03/15 13:37:39 main.go:249: [Order] 开始查询商品信息：GoodsId=29
+2026/03/15 13:37:39 main.go:255: [Order] 商品查询成功：Name=安先二油儿动, 当前库存=39
+2026/03/15 13:37:39 main.go:262: [Order] 库存检查通过：当前库存=39 >= 订单数量=10
+2026/03/15 13:37:39 main.go:265: [Order] 开始扣减库存：GoodsId=29, 扣减数量=10
+2026/03/15 13:37:39 main.go:278: [Order] ✅ 库存扣减成功：GoodsId=29, 原库存=39, 扣减=10, 现库存=29
+2026/03/15 13:37:39 main.go:283: [Order] 🎉 订单处理完成：OrderCode=c9f2df84-7190-45, 总耗时=457.9204ms
+2026/03/15 13:37:39 consumer.go:140: [RabbitMQ Consumer] 消息处理成功
+2026/03/15 13:41:45 consumer.go:122: [RabbitMQ Consumer] 收到消息: {"name":"收且九传没","price":9.87,"stock":152,"action":"created","timestamp":"2026-03-15T13:41:45.6441508+08:00"}
+2026/03/15 13:41:45 main.go:168: [Consumer] 处理商品消息：Name=收且九传没, Price=9.87, Stock=152, Key=fcc8f55748ac9c06d96c2f3b7151788a
+2026/03/15 13:41:45 main.go:183: [Consumer] 商品已保存到数据库：ID=42, Name=收且九传没
+2026/03/15 13:41:45 consumer.go:140: [RabbitMQ Consumer] 消息处理成功
+2026/03/15 13:49:33 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 13:49:36 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 13:49:39 health.go:169: [Consul] 心跳恢复，重试次数: 2
+2026/03/15 13:49:40 health.go:169: [Consul] 心跳恢复，重试次数: 3
+2026/03/15 14:11:01 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:11:03 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:11:06 health.go:169: [Consul] 心跳恢复，重试次数: 2
+2026/03/15 14:11:08 health.go:169: [Consul] 心跳恢复，重试次数: 3
+2026/03/15 14:11:48 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:11:51 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:11:54 health.go:169: [Consul] 心跳恢复，重试次数: 2
+2026/03/15 14:11:55 health.go:169: [Consul] 心跳恢复，重试次数: 3
+2026/03/15 14:12:03 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:12:06 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:12:07 health.go:169: [Consul] 心跳恢复，重试次数: 1
+2026/03/15 14:12:10 health.go:169: [Consul] 心跳恢复，重试次数: 3
+2026/03/15 14:13:43 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:13:46 health.go:169: [Consul] 心跳恢复，重试次数: 2
+2026/03/15 14:14:16 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:14:18 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:14:19 health.go:169: [Consul] 心跳恢复，重试次数: 1
+2026/03/15 14:14:23 health.go:169: [Consul] 心跳恢复，重试次数: 3
+2026/03/15 14:15:33 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:15:36 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:15:36 health.go:169: [Consul] 心跳恢复，重试次数: 2
+2026/03/15 14:15:37 health.go:169: [Consul] 心跳恢复，重试次数: 1
+2026/03/15 14:21:46 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:21:48 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:21:51 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:21:51 health.go:169: [Consul] 心跳恢复，重试次数: 2
+2026/03/15 14:21:52 health.go:169: [Consul] 心跳恢复，重试次数: 1
+2026/03/15 14:21:53 health.go:169: [Consul] 心跳恢复，重试次数: 3
+2026/03/15 14:26:06 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:26:08 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:26:11 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:26:11 health.go:169: [Consul] 心跳恢复，重试次数: 2
+2026/03/15 14:26:12 health.go:169: [Consul] 心跳恢复，重试次数: 1
+2026/03/15 14:26:13 health.go:169: [Consul] 心跳恢复，重试次数: 3
+2026/03/15 14:38:33 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:38:36 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:38:38 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:38:41 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:38:43 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:38:46 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:38:48 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:38:51 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:38:53 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:38:56 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:38:58 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:39:01 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:39:03 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:39:06 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:39:08 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:39:11 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:39:13 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:39:16 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:39:18 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:39:21 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:39:23 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:39:26 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:39:28 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:39:31 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:39:33 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:39:36 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:39:38 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:39:41 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:39:43 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:39:46 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:39:48 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:39:51 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:39:53 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:39:56 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:39:58 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:40:01 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:40:03 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:40:06 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:40:08 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:40:11 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:40:13 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:40:16 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:40:18 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:40:21 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:40:23 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:40:26 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:40:28 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:40:31 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:40:33 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:40:36 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:40:38 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:40:41 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:40:43 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:40:46 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:40:48 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:40:51 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:40:53 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:40:56 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:40:58 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:41:01 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:41:03 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:41:06 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:41:08 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:41:11 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:41:13 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:41:16 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:41:18 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:41:21 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:41:23 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:41:26 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:41:28 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:41:31 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:41:33 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:41:36 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:41:38 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:41:41 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:41:43 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:41:46 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:41:48 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:41:51 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:41:53 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:41:56 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:41:58 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:42:01 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:42:03 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:42:06 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:42:08 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:42:11 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:42:13 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:42:16 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:42:18 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:42:21 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:42:23 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:42:26 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:42:28 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:42:31 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:42:33 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:42:36 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:42:38 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:42:41 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:42:43 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:42:46 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:42:48 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:42:51 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:42:53 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:42:56 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:42:58 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:43:01 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:43:03 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:43:06 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:43:08 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:43:11 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:43:13 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:43:16 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:43:18 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:43:21 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:43:23 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:43:26 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:43:28 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:43:31 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:43:33 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:43:36 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:43:38 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:43:41 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:43:43 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:43:46 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:43:48 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:43:51 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:43:53 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:43:56 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:43:58 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:44:01 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:44:03 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:44:06 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:44:08 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:44:11 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:44:13 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:44:16 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:44:18 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:44:21 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:44:23 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:44:26 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:44:28 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:44:31 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:44:33 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:44:36 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:44:38 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:44:41 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:44:43 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:44:46 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:44:48 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:44:51 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:44:53 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:44:56 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:44:58 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:45:01 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:45:03 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:45:06 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:45:08 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:45:11 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:45:13 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:45:16 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:45:18 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:45:21 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:45:23 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:45:26 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:45:28 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:45:31 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:45:33 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:45:36 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:45:38 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:45:41 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:45:43 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:45:46 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:45:48 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:45:51 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:45:53 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:45:56 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:45:58 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:46:01 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:46:03 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:46:06 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:46:08 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:46:11 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:46:13 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:46:16 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:46:18 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:46:21 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:46:23 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:46:26 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:46:28 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:46:31 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:46:33 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:46:36 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:46:38 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:46:41 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:46:43 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:46:46 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:46:48 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:46:51 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:46:53 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:46:56 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:46:58 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:47:01 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:47:03 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:47:06 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:47:08 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:47:11 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:47:13 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:47:16 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:47:18 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:47:21 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:47:23 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:47:26 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:47:28 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:47:31 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:47:33 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:47:36 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:47:38 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:47:41 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:47:43 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:47:46 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:47:48 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:47:51 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:47:53 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:47:56 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:47:58 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:48:01 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:48:03 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:48:06 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:48:08 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:48:11 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:48:13 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:48:16 health.go:139: [Consul] 心跳失败: Unexpected response code: 404 (Unknown check ID "user-service-HuaWei2023-8081-health". Ensure that the check ID is passed, not the check name.)
+2026/03/15 14:48:17 health.go:169: [Consul] 心跳恢复，重试次数: 1
+2026/03/15 14:48:18 health.go:169: [Consul] 心跳恢复，重试次数: 3
+2026/03/15 14:48:20 health.go:169: [Consul] 心跳恢复，重试次数: 3
+2026/03/15 14:48:22 main.go:298: [Consumer] 收到信号：interrupt，准备退出...
+2026/03/15 14:48:22 main.go:300: [Consumer] 消费者已停止
+2026/03/15 14:48:30 main.go:48: 日志文件初始化成功：logs\consumer_2026-03-15.log
+2026/03/15 14:48:30 main.go:88: ========== 消费者服务启动 ==========
+2026/03/15 14:48:33 main.go:94: [DB] 数据库连接成功
+2026/03/15 14:48:33 main.go:95: [Redis] Redis 连接成功
+2026/03/15 14:48:33 main.go:99: [Idempotent] 幂等性处理器初始化成功
+2026/03/15 14:48:33 main.go:114: [RabbitMQ] 消费者连接成功
+2026/03/15 14:48:33 consumer.go:107: [RabbitMQ Consumer] 开始消费队列: goods.queue, consumerTag: 
+2026/03/15 14:48:33 main.go:127: [Consumer] 开始监听 goods.queue 队列...
+2026/03/15 14:48:33 consumer.go:107: [RabbitMQ Consumer] 开始消费队列: order.queue, consumerTag: 
+2026/03/15 14:48:33 main.go:136: [Consumer] 开始监听 order.queue 队列...
+2026/03/15 14:48:33 main.go:138: [Consumer] 按 Ctrl+C 停止消费
