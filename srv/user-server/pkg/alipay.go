@@ -28,7 +28,8 @@ import (
 //	    ReturnURL:  "https://your-domain/callback",
 //	}
 //	url := pkg.AliPay(cfg, "ORDER123", 99.99)
-func AliPay(cfg config.AliPay, orderSn string, total float64) string {
+func AliPay(orderSn string, total float64) string {
+	cfg := config.GlobalConf.AliPay
 	// 1. 参数验证
 	if cfg.PrivateKey == "" {
 		log.Println("[AliPay] 错误：PrivateKey 为空")
@@ -55,18 +56,18 @@ func AliPay(cfg config.AliPay, orderSn string, total float64) string {
 	}
 
 	// 3. 构建支付请求
-	var p = alipay.TradeWapPay{}
+	var p = alipay.TradePagePay{}
 	p.NotifyURL = cfg.NotifyURL
 	p.ReturnURL = cfg.ReturnURL
 	p.Subject = "订单支付"
 	p.OutTradeNo = orderSn
 	p.TotalAmount = strconv.FormatFloat(total, 'f', 2, 64)
-	p.ProductCode = "QUICK_WAP_WAY"
+	p.ProductCode = "FAST_INSTANT_TRADE_PAY"
 
 	log.Printf("[AliPay] 创建支付请求：订单号=%s, 金额=%.2f", orderSn, total)
 
 	// 4. 获取支付URL
-	url, err := client.TradeWapPay(p)
+	url, err := client.TradePagePay(p)
 	if err != nil {
 		log.Printf("[AliPay] 创建支付URL失败：%v", err)
 		return ""

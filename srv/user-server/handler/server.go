@@ -164,7 +164,7 @@ func (s *Server) AliPay(_ context.Context, in *__.PayReq) (*__.PayResp, error) {
 	if err != nil {
 		return nil, errors.New("查询失败")
 	}
-	pay := pkg.AliPayFromConfig(id.OrderCode, id.Price)
+	pay := pkg.AliPay(id.OrderCode, id.Price)
 	if pay == "" {
 		return nil, errors.New("支付链接生成失败")
 	}
