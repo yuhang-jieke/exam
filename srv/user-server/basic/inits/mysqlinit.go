@@ -11,7 +11,7 @@ import (
 
 func MysqlInit() {
 	var err error
-	// 获取MySQL配置（Nacos优先，本地配置备选）
+
 	mysqlConfig := GetMysqlConfigFromNacosOrLocal()
 
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local",

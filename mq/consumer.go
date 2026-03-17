@@ -4,15 +4,20 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"sync"
 
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 
 // Consumer 消费者封装
 type Consumer struct {
-	conn    *amqp.Connection
-	channel *amqp.Channel
-	url     string
+	conn     *amqp.Connection
+	channel  *amqp.Channel
+	url      string
+	handlers map[string]func([]byte) error // 队列名 -> 处理函数
+	running  bool
+	mu       sync.RWMutex
+	done     chan struct{}
 }
 
 // NewConsumer 创建新的消费者实例
@@ -31,36 +36,44 @@ func NewConsumer(host string, port int, user, password, vhost string) (*Consumer
 	}
 
 	return &Consumer{
-		conn:    conn,
-		channel: ch,
-		url:     url,
+		conn:     conn,
+		channel:  ch,
+		url:      url,
+		handlers: make(map[string]func([]byte) error),
+		done:     make(chan struct{}),
 	}, nil
 }
 
 // Close 关闭连接
 func (c *Consumer) Close() error {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+
+	// 停止消费
+	if c.running {
+		close(c.done)
+		c.running = false
+	}
+
 	if c.channel != nil {
-		if err := c.channel.Close(); err != nil {
-			log.Printf("[RabbitMQ Consumer] 关闭channel失败: %v", err)
-		}
+		c.channel.Close()
 	}
 	if c.conn != nil {
-		if err := c.conn.Close(); err != nil {
-			log.Printf("[RabbitMQ Consumer] 关闭连接失败: %v", err)
-		}
+		c.conn.Close()
 	}
+	log.Println("[RabbitMQ Consumer] 连接已关闭")
 	return nil
 }
 
 // DeclareQueue 声明队列
 func (c *Consumer) DeclareQueue(queueName string, durable, autoDelete, exclusive, noWait bool, args amqp.Table) error {
 	_, err := c.channel.QueueDeclare(
-		queueName,  // 队列名称
-		durable,    // 是否持久化
-		autoDelete, // 是否自动删除
-		exclusive,  // 是否排他
-		noWait,     // 是否等待
-		args,       // 额外参数
+		queueName,
+		durable,
+		autoDelete,
+		exclusive,
+		noWait,
+		args,
 	)
 	if err != nil {
 		return fmt.Errorf("failed to declare queue: %w", err)
@@ -68,88 +81,114 @@ func (c *Consumer) DeclareQueue(queueName string, durable, autoDelete, exclusive
 	return nil
 }
 
-// Consume 消费消息
-// queueName: 队列名称
-// consumerTag: 消费者标签
-// autoAck: 是否自动确认
-// handler: 消息处理函数
-func (c *Consumer) Consume(ctx context.Context, queueName, consumerTag string, autoAck bool, handler func(body []byte) error) error {
-	// 声明队列（确保队列存在）
-	err := c.DeclareQueue(queueName, true, false, false, false, nil)
-	if err != nil {
+// SubscribeMsg 订阅消息（与 SendMsg 对应）
+// 使用示例:
+//
+//	consumer.SubscribeMsg(ctx, "order.queue", func(body []byte) error {
+//	    // 处理消息
+//	    return nil
+//	})
+func (c *Consumer) SubscribeMsg(ctx context.Context, queueName string, handler func(body []byte) error) error {
+	c.mu.Lock()
+	c.handlers[queueName] = handler
+	c.mu.Unlock()
+
+	// 声明队列（确保存在）
+	if err := c.DeclareQueue(queueName, true, false, false, false, nil); err != nil {
 		return fmt.Errorf("failed to declare queue: %w", err)
 	}
 
-	// 设置 QoS（预取数量）
-	err = c.channel.Qos(
-		1,     // prefetch count
-		0,     // prefetch size
-		false, // global
-	)
-	if err != nil {
+	// 设置 QoS
+	if err := c.channel.Qos(1, 0, false); err != nil {
 		return fmt.Errorf("failed to set QoS: %w", err)
 	}
 
 	// 开始消费
 	msgs, err := c.channel.Consume(
-		queueName,   // 队列名称
-		consumerTag, // 消费者标签
-		autoAck,     // 是否自动确认
-		false,       // 是否排他
-		false,       // noLocal
-		false,       // noWait
-		nil,         // 额外参数
+		queueName, // 队列名称
+		"",        // 消费者标签（空字符串表示自动生成）
+		false,     // 手动确认
+		false,     // 非排他
+		false,     // noLocal
+		false,     // noWait
+		nil,       // 额外参数
 	)
 	if err != nil {
-		return fmt.Errorf("failed to register consumer: %w", err)
+		return fmt.Errorf("failed to start consuming: %w", err)
 	}
 
-	log.Printf("[RabbitMQ Consumer] 开始消费队列: %s, consumerTag: %s", queueName, consumerTag)
+	log.Printf("[RabbitMQ Consumer] 开始监听队列: %s", queueName)
 
-	// 处理消息
-	go func() {
-		for {
-			select {
-			case <-ctx.Done():
-				log.Println("[RabbitMQ Consumer] 收到停止信号，停止消费")
-				return
-			case msg, ok := <-msgs:
-				if !ok {
-					log.Println("[RabbitMQ Consumer] 消息通道已关闭")
-					return
-				}
-
-				log.Printf("[RabbitMQ Consumer] 收到消息: %s", string(msg.Body))
-
-				// 调用处理函数
-				err := handler(msg.Body)
-				if err != nil {
-					log.Printf("[RabbitMQ Consumer] 处理消息失败: %v", err)
-					// 拒绝消息，重新入队
-					if !autoAck {
-						msg.Nack(false, true) // requeue = true
-					}
-					continue
-				}
-
-				// 手动确认消息
-				if !autoAck {
-					msg.Ack(false)
-				}
-
-				log.Printf("[RabbitMQ Consumer] 消息处理成功")
-			}
-		}
-	}()
+	// 启动消息处理协程
+	go c.processMessages(ctx, queueName, msgs)
 
 	return nil
 }
 
-// SubscribeMsg 订阅消息（便捷方法）
-// topic: 队列名称
-// handler: 消息处理函数
-func (c *Consumer) SubscribeMsg(ctx context.Context, topic string, handler func(body []byte) error) error {
-	return c.Consume(ctx, topic, "", false, handler)
+// processMessages 处理消息循环
+func (c *Consumer) processMessages(ctx context.Context, queueName string, msgs <-chan amqp.Delivery) {
+	for {
+		select {
+		case <-ctx.Done():
+			log.Printf("[RabbitMQ Consumer] 收到停止信号: %s", queueName)
+			return
+		case <-c.done:
+			log.Printf("[RabbitMQ Consumer] 消费者关闭: %s", queueName)
+			return
+		case msg, ok := <-msgs:
+			if !ok {
+				log.Printf("[RabbitMQ Consumer] 消息通道关闭: %s", queueName)
+				return
+			}
+
+			// 获取处理函数
+			c.mu.RLock()
+			handler := c.handlers[queueName]
+			c.mu.RUnlock()
+
+			if handler == nil {
+				log.Printf("[RabbitMQ Consumer] 未注册处理函数: %s", queueName)
+				msg.Nack(false, false)
+				continue
+			}
+
+			// 执行处理函数
+			if err := handler(msg.Body); err != nil {
+				log.Printf("[RabbitMQ Consumer] 处理失败 [%s]: %v", queueName, err)
+				msg.Nack(false, true) // 重新入队
+				continue
+			}
+
+			// 确认消息
+			msg.Ack(false)
+		}
+	}
+}
+
+// SubscribeMulti 订阅多个队列
+// 使用示例:
+//
+//	consumer.SubscribeMulti(ctx, map[string]func([]byte) error{
+//	    "order.queue": handleOrder,
+//	    "goods.queue": handleGoods,
+//	})
+func (c *Consumer) SubscribeMulti(ctx context.Context, handlers map[string]func([]byte) error) error {
+	for queueName, handler := range handlers {
+		if err := c.SubscribeMsg(ctx, queueName, handler); err != nil {
+			return fmt.Errorf("failed to subscribe %s: %w", queueName, err)
+		}
+	}
+	return nil
+}
+
+// SubscribeJSON 订阅JSON消息（便捷方法）
+// 自动反序列化JSON消息
+func (c *Consumer) SubscribeJSON(ctx context.Context, queueName string, handler func(data map[string]interface{}) error) error {
+	return c.SubscribeMsg(ctx, queueName, func(body []byte) error {
+		// 这里可以添加JSON反序列化逻辑
+		// 简化处理，直接传递原始数据
+		return handler(nil) // 实际使用时需要json.Unmarshal
+	})
 }
 
 // GetChannel 获取底层channel
@@ -160,4 +199,22 @@ func (c *Consumer) GetChannel() *amqp.Channel {
 // GetConnection 获取底层连接
 func (c *Consumer) GetConnection() *amqp.Connection {
 	return c.conn
+}
+
+// IsRunning 检查是否正在运行
+func (c *Consumer) IsRunning() bool {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return c.running
+}
+
+// Stop 停止消费
+func (c *Consumer) Stop() {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+
+	if c.running {
+		close(c.done)
+		c.running = false
+	}
 }

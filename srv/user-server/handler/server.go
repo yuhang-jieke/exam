@@ -52,7 +52,7 @@ func (s *Server) AddGoods(_ context.Context, in *__.AddGoodsReq) (*__.AddGoodsRe
 	}
 
 	// 发送到队列
-	err = config.RabbitMQPublisher.PublishJSON(context.Background(), "goods.queue", jsonData)
+	err = config.RabbitMQPublisher.SendMsg(context.Background(), "goods.queue", jsonData)
 	if err != nil {
 		log.Printf("[RabbitMQ] 发送商品消息失败: %v", err)
 		return nil, err
@@ -112,7 +112,7 @@ func (s *Server) AddOrder(_ context.Context, in *__.OrderReq) (*__.OrderResp, er
 	}
 
 	// 发送到订单队列
-	err = config.RabbitMQPublisher.PublishJSON(context.Background(), "order.queue", jsonData)
+	err = config.RabbitMQPublisher.SendMsg(context.Background(), "order.queue", jsonData)
 	if err != nil {
 		log.Printf("[RabbitMQ] 发送订单消息失败：%v", err)
 		return nil, err
@@ -164,7 +164,10 @@ func (s *Server) AliPay(_ context.Context, in *__.PayReq) (*__.PayResp, error) {
 	if err != nil {
 		return nil, errors.New("查询失败")
 	}
-	pay := pkg.AliPay(id.OrderCode, id.Price)
+	pay := pkg.AliPayFromConfig(id.OrderCode, id.Price)
+	if pay == "" {
+		return nil, errors.New("支付链接生成失败")
+	}
 	return &__.PayResp{
 		Url: pay,
 	}, nil

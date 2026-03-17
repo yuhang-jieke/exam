@@ -1,0 +1,54 @@
+# 配置文件模板
+# 复制此文件为 config.yaml 并填写真实配置
+# cp config.example.yaml config.yaml
+
+Nacos:
+  Addr: "nacos-host"
+  Prot: 8848
+  Namespace: ""
+  DataId: "demo-config"
+  Group: "DEFAULT_GROUP"
+
+Mysql:
+  Host: "mysql-host"
+  Port: 3306
+  User: "your-username"
+  Password: "your-password"
+  Database: "your-database"
+
+Redis:
+  Host: "redis-host"
+  Port: 6379
+  Password: "your-password"
+  Database: 0
+
+RabbitMQ:
+  Host: "rabbitmq-host"
+  Port: 5672
+  User: "your-username"
+  Password: "your-password"
+  VHost: "your-vhost"
+
+AliPay:
+  PrivateKey: "your-private-key"  # RSA私钥
+  AppId: "your-app-id"            # 支付宝应用ID
+  NotifyURL: "https://your-domain/notify/pay"
+  ReturnURL: "https://your-domain/callback"
+
+Consul:
+  address: "consul-host:8500"
+  token: ""
+  scheme: "http"
+  service_name: "user-service"
+  service_id: ""
+  service_port: 8081
+  service_addr: ""
+  ttl: "5s"
+  check_timeout: "3s"
+  deregister_after: "30s"
+  tags:
+    - "grpc"
+    - "v1.0"
+  meta:
+    protocol: "grpc"
+    version: "1.0.0"

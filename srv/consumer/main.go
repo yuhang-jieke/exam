@@ -240,23 +240,23 @@ func handleOrderMessage(ctx context.Context, body []byte) error {
 			Price:     msg.Price,
 		}
 		if err := order.OrderAdd(config.DB); err != nil {
-			log.Printf("[Order] ❌ 创建订单失败：%v", err)
+			log.Printf("[Order]创建订单失败：%v", err)
 			return err
 		}
-		log.Printf("[Order] ✅ 订单创建成功：OrderCode=%s, ID=%d", msg.OrderCode, order.ID)
+		log.Printf("[Order]  订单创建成功：OrderCode=%s, ID=%d", msg.OrderCode, order.ID)
 
 		// 查询商品信息
 		log.Printf("[Order] 开始查询商品信息：GoodsId=%d", msg.GoodsId)
 		var goods model.Goods
 		if err := goods.GoodsFind(config.DB, int64(msg.GoodsId)); err != nil {
-			log.Printf("[Order] ❌ 查询商品失败：%v", err)
+			log.Printf("[Order]  查询商品失败：%v", err)
 			return err
 		}
 		log.Printf("[Order] 商品查询成功：Name=%s, 当前库存=%d", goods.Name, goods.Stock)
 
 		// 检查库存是否充足
 		if goods.Stock < msg.Num {
-			log.Printf("[Order] ❌ 库存不足：当前库存=%d, 需要扣减=%d", goods.Stock, msg.Num)
+			log.Printf("[Order]  库存不足：当前库存=%d, 需要扣减=%d", goods.Stock, msg.Num)
 			return fmt.Errorf("库存不足：当前库存=%d, 订单数量=%d", goods.Stock, msg.Num)
 		}
 		log.Printf("[Order] 库存检查通过：当前库存=%d >= 订单数量=%d", goods.Stock, msg.Num)
@@ -270,17 +270,17 @@ func handleOrderMessage(ctx context.Context, body []byte) error {
 			Num:     int64(msg.Num),
 		}
 		if err := goods.UdateGoods(config.DB, orderReq); err != nil {
-			log.Printf("[Order] ❌ 扣减库存失败：%v", err)
+			log.Printf("[Order]  扣减库存失败：%v", err)
 			return err
 		}
 
 		newStock := oldStock - msg.Num
-		log.Printf("[Order] ✅ 库存扣减成功：GoodsId=%d, 原库存=%d, 扣减=%d, 现库存=%d",
+		log.Printf("[Order]  库存扣减成功：GoodsId=%d, 原库存=%d, 扣减=%d, 现库存=%d",
 			msg.GoodsId, oldStock, msg.Num, newStock)
 
 		// 记录处理耗时
 		elapsed := time.Since(startTime)
-		log.Printf("[Order] 🎉 订单处理完成：OrderCode=%s, 总耗时=%v", msg.OrderCode, elapsed)
+		log.Printf("[Order]  订单处理完成：OrderCode=%s, 总耗时=%v", msg.OrderCode, elapsed)
 
 	default:
 		log.Printf("[Order] 未知操作类型：%s", msg.Action)

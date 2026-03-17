@@ -13,31 +13,20 @@ import (
 var (
 	GlobalConf   *AppConfig
 	DB           *gorm.DB
-	RDB          *redis.Client // Redis 客户端
+	RDB          *redis.Client
 	ConsulClient *registry.Client
-	RuntimePort  int // 运行时端口（由命令行参数指定）
+	RuntimePort  int
 
-	// RabbitMQ 生产者和发布器
 	RabbitMQProducer  *mq.Producer
 	RabbitMQPublisher *mq.Publisher
 
-	// RuntimeServiceConfig 运行时服务配置（支持热更新）
 	RuntimeServiceConfig *ServiceConfig
 	configMutex          sync.RWMutex
 
-	// 配置变更回调函数列表
 	configCallbacks []func(old, new *ServiceConfig)
 	callbacksMutex  sync.RWMutex
 )
 
-// RegisterConfigCallback 注册配置变更回调函数
-func RegisterConfigCallback(callback func(old, new *ServiceConfig)) {
-	callbacksMutex.Lock()
-	defer callbacksMutex.Unlock()
-	configCallbacks = append(configCallbacks, callback)
-}
-
-// UpdateServiceConfig 更新服务配置（热更新）
 func UpdateServiceConfig(newConfig *ServiceConfig) {
 	if newConfig == nil {
 		return
@@ -52,7 +41,6 @@ func UpdateServiceConfig(newConfig *ServiceConfig) {
 	RuntimeServiceConfig = newConfig
 	configMutex.Unlock()
 
-	// 触发配置变更回调
 	if oldConfig != nil {
 		triggerCallbacks(oldConfig, newConfig)
 	}
@@ -61,7 +49,6 @@ func UpdateServiceConfig(newConfig *ServiceConfig) {
 		newConfig.HTTPTimeout, newConfig.GRPCTimeout, newConfig.DBTimeout)
 }
 
-// triggerCallbacks 触发配置变更回调
 func triggerCallbacks(old, new *ServiceConfig) {
 	callbacksMutex.RLock()
 	callbacks := make([]func(old, new *ServiceConfig), len(configCallbacks))
@@ -80,7 +67,6 @@ func triggerCallbacks(old, new *ServiceConfig) {
 	}
 }
 
-// GetServiceConfig 获取当前服务配置
 func GetServiceConfig() *ServiceConfig {
 	configMutex.RLock()
 	defer configMutex.RUnlock()
@@ -95,19 +81,4 @@ func GetServiceConfig() *ServiceConfig {
 		}
 	}
 	return RuntimeServiceConfig
-}
-
-// GetHTTPTimeout 获取HTTP超时时间
-func GetHTTPTimeout() int {
-	return GetServiceConfig().HTTPTimeout
-}
-
-// GetGRPCTimeout 获取gRPC超时时间
-func GetGRPCTimeout() int {
-	return GetServiceConfig().GRPCTimeout
-}
-
-// GetDBTimeout 获取数据库超时时间
-func GetDBTimeout() int {
-	return GetServiceConfig().DBTimeout
 }

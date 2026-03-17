@@ -58,7 +58,6 @@ type Consul struct {
 	Meta            map[string]string `mapstructure:"meta"`
 }
 
-// ServiceConfig 服务运行时配置（支持热更新）
 type ServiceConfig struct {
 	// HTTP请求超时时间(秒)
 	HTTPTimeout int `json:"http_timeout"`

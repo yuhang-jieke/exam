@@ -132,22 +132,23 @@ type PublishOptions struct {
 	Immediate     bool       // 立即投递
 }
 
-// PublishJSON 发布JSON消息到队列（便捷方法）
 func (p *Publisher) PublishJSON(ctx context.Context, queueName string, jsonData []byte) error {
 	return p.PublishMessage(ctx, queueName, jsonData, "application/json")
 }
 
-// PublishText 发布文本消息到队列（便捷方法）
+func (p *Publisher) SendMsg(ctx context.Context, queueName string, body []byte) error {
+	return p.PublishMessage(ctx, queueName, body, "application/json")
+}
+
 func (p *Publisher) PublishText(ctx context.Context, queueName string, text string) error {
 	return p.PublishMessage(ctx, queueName, []byte(text), "text/plain")
 }
 
-// PublishDelayedMessage 发布延迟消息（需要安装 rabbitmq_delayed_message_exchange 插件）
 func (p *Publisher) PublishDelayedMessage(ctx context.Context, exchangeName string, body []byte, delayMs int64, contentType string) error {
 	err := p.producer.channel.PublishWithContext(
 		ctx,
-		exchangeName, // 延迟交换机名称
-		"",           // 路由键
+		exchangeName,
+		"",
 		false,
 		false,
 		amqp.Publishing{
@@ -155,7 +156,7 @@ func (p *Publisher) PublishDelayedMessage(ctx context.Context, exchangeName stri
 			Body:         body,
 			DeliveryMode: amqp.Persistent,
 			Headers: amqp.Table{
-				"x-delay": delayMs, // 延迟时间（毫秒）
+				"x-delay": delayMs,
 			},
 			Timestamp: time.Now(),
 		},
